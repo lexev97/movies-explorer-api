@@ -17,7 +17,7 @@
 https://github.com/lexev97/movies-explorer-api
 
 ## Публичный IP
-IP 130.193.49.54
+130.193.49.54
 
 ## Домен
-https://api.place.nomoredomains.xyz
+api.ypdiploma.nomoreparties.co
