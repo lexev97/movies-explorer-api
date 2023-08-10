@@ -20,4 +20,4 @@ https://github.com/lexev97/movies-explorer-api
 130.193.49.54
 
 ## Домен
-api.ypdiploma.nomoreparties.co
+https://api.ypdiploma.nomoreparties.co
