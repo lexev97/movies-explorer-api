@@ -9,7 +9,7 @@ const { corsHandler } = require('./middlewares/cors');
 const NotFoundError = require('./errors/NotFoundError');
 const { BAD_REQUEST, CONFLICT, SERVER_ERROR } = require('./errors/statusCodes');
 
-const { PORT = 3000, MONGOOSE_DB = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
+const { PORT = 5000, MONGOOSE_DB = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
 
 const app = express();
 mongoose.connect(MONGOOSE_DB);
