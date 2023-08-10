@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { linkRegex } = require("../constants/constants");
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -24,14 +25,32 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return linkRegex.test(v);
+      },
+      message: "Неправильная ссылка",
+    },
   },
   trailerLink: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return linkRegex.test(v);
+      },
+      message: "Неправильная ссылка",
+    },
   },
   thumbnail: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return linkRegex.test(v);
+      },
+      message: "Неправильная ссылка",
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
