@@ -1,10 +1,10 @@
-const router = require("express").Router();
-const { celebrate, Joi } = require("celebrate");
-const { getUserInfo, updateUserInfo } = require("../controllers/users");
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const { getUserInfo, updateUserInfo } = require('../controllers/users');
 
-router.get("/me", getUserInfo);
+router.get('/me', getUserInfo);
 router.patch(
-  "/me",
+  '/me',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),
@@ -13,3 +13,5 @@ router.patch(
   }),
   updateUserInfo,
 );
+
+module.exports = router;

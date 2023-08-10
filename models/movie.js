@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { linkRegex } = require("../constants/constants");
+const mongoose = require('mongoose');
+const { linkRegex } = require('../constants/constants');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -29,7 +29,7 @@ const movieSchema = new mongoose.Schema({
       validator(v) {
         return linkRegex.test(v);
       },
-      message: "Неправильная ссылка",
+      message: 'Неправильная ссылка',
     },
   },
   trailerLink: {
@@ -39,7 +39,7 @@ const movieSchema = new mongoose.Schema({
       validator(v) {
         return linkRegex.test(v);
       },
-      message: "Неправильная ссылка",
+      message: 'Неправильная ссылка',
     },
   },
   thumbnail: {
@@ -49,12 +49,12 @@ const movieSchema = new mongoose.Schema({
       validator(v) {
         return linkRegex.test(v);
       },
-      message: "Неправильная ссылка",
+      message: 'Неправильная ссылка',
     },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: 'user',
     required: true,
   },
   movieId: {
@@ -71,4 +71,4 @@ const movieSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("movie", movieSchema);
+module.exports = mongoose.model('movie', movieSchema);

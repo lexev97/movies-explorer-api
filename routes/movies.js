@@ -1,15 +1,15 @@
-const router = require("express").Router();
-const { celebrate, Joi } = require("celebrate");
-const { linkRegex } = require("../constants/constants");
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const { linkRegex } = require('../constants/constants');
 const {
   getSavedMovies,
   addMovie,
   removeMovie,
-} = require("../controllers/movies");
+} = require('../controllers/movies');
 
-router.get("/", getSavedMovies);
+router.get('/', getSavedMovies);
 router.post(
-  "/",
+  '/',
   celebrate({
     body: Joi.object().keys({
       country: Joi.string().required(),
@@ -18,21 +18,23 @@ router.post(
       year: Joi.string().required(),
       description: Joi.string().required(),
       image: Joi.string().pattern(linkRegex).required(),
-      trailer: Joi.string().pattern(linkRegex).required(),
+      trailerLink: Joi.string().pattern(linkRegex).required(),
       nameRU: Joi.string().required(),
       nameEN: Joi.string().required(),
       thumbnail: Joi.string().pattern(linkRegex).required(),
       movieId: Joi.number().required(),
     }),
   }),
-  addMovie
+  addMovie,
 );
 router.delete(
-  "/:movieId",
+  '/:movieId',
   celebrate({
     params: Joi.object().keys({
-      movieId: Joi.number().required(),
+      movieId: Joi.string().alphanum().length(24),
     }),
   }),
-  removeMovie
+  removeMovie,
 );
+
+module.exports = router;

@@ -1,6 +1,7 @@
-const Movie = require("../models/movie");
-const { CREATED } = require("../errors/statusCodes");
-const NotFoundError = require("../errors/NotFoundError");
+const Movie = require('../models/movie');
+const { CREATED } = require('../errors/statusCodes');
+const NotFoundError = require('../errors/NotFoundError');
+const RestrictedError = require('../errors/RestrictedError');
 
 // Returns all movies saved by current user
 module.exports.getSavedMovies = (req, res, next) => {
@@ -22,7 +23,7 @@ module.exports.addMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -37,7 +38,7 @@ module.exports.addMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -50,12 +51,16 @@ module.exports.addMovie = (req, res, next) => {
 
 // Removes saved movie by id
 module.exports.removeMovie = (req, res, next) => {
-  Movie.findByIdAndRemove(req.params.movieId)
+  Movie.findById(req.params.movieId)
     .then((movie) => {
-      if (movie) {
-        return res.send({ data: movie });
+      if (movie && (movie.owner.toString() === req.user._id)) {
+        return Movie.findByIdAndRemove(movie._id);
       }
-      throw new NotFoundError("Передан несуществующий _id фильма");
+      if (movie && (movie.owner.toString() !== req.user._id)) {
+        throw new RestrictedError('Пользователь может удалять только свои фильмы');
+      }
+      throw new NotFoundError('Передан несуществующий _id фильма');
     })
+    .then((mov) => res.send({ data: mov }))
     .catch(next);
 };

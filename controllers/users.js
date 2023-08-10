@@ -1,9 +1,9 @@
-const User = require("../models/user");
-const bycript = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { JWT_SECRET = "some-secret-key" } = process.env;
-const { CREATED } = require("../errors/statusCodes");
-const NotFoundError = require("../errors/NotFoundError");
+const bycript = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+
+const { JWT_SECRET = 'some-secret-key' } = process.env;
+const { CREATED } = require('../errors/statusCodes');
 
 // Returns user's info (email and name)
 module.exports.getUserInfo = (req, res, next) => {
@@ -21,7 +21,7 @@ module.exports.updateUserInfo = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { name, email },
-    { new: true, runValidators: true }
+    { new: true, runValidators: true },
   )
     .then((user) => res.send({ data: user }))
     .catch(next);
@@ -33,13 +33,11 @@ module.exports.createUser = (req, res, next) => {
 
   bycript
     .hash(req.body.password, 10)
-    .then((hash) =>
-      User.create({
-        email,
-        password: hash,
-        name,
-      })
-    )
+    .then((hash) => User.create({
+      email,
+      password: hash,
+      name,
+    }))
     .then((user) => {
       res.status(CREATED).send({
         data: {
@@ -58,21 +56,21 @@ module.exports.loginUser = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
-        dexpiresIn: "7d",
+        expiresIn: '7d',
       });
 
       res
-        .cookie("jwt", token, {
+        .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
-          samesite: "strict",
+          samesite: 'strict',
         })
-        .send({ message: "Авторизация прошла успешно!" });
+        .send({ message: 'Авторизация прошла успешно!' });
     })
     .catch(next);
 };
 
 // Removes JWT from cookies once user signout
-module.exports.logoutUser = (req, res, next) => {
-  res.clearCookie("jwt").send({ message: "Сеанс завершен" });
+module.exports.logoutUser = (req, res) => {
+  res.clearCookie('jwt').send({ message: 'Сеанс завершен' });
 };

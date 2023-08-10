@@ -1,17 +1,15 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
-const { errors } = require("celebrate");
-const { requestLogger, errorLogger } = require("./middlewares/logger");
-const { corsHandler } = require("./middlewares/cors");
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const { errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { corsHandler } = require('./middlewares/cors');
 
-const router = require("./routes/index");
-const NotFoundError = require("./errors/NotFoundError");
-const { BAD_REQUEST, CONFLICT, SERVER_ERROR } = require("./errors/statusCodes");
+const NotFoundError = require('./errors/NotFoundError');
+const { BAD_REQUEST, CONFLICT, SERVER_ERROR } = require('./errors/statusCodes');
 
-const { PORT = 3000, MONGOOSE_DB = "mongodb://localhost:27017/bitfilmsdb" } =
-  process.env;
+const { PORT = 3000, MONGOOSE_DB = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
 
 const app = express();
 mongoose.connect(MONGOOSE_DB);
@@ -21,12 +19,12 @@ app.use(cookieParser());
 app.use(requestLogger);
 app.use(corsHandler);
 
-app.use("/", router);
+app.use('/', require('./routes/index'));
 
 app.use(errorLogger);
 
-app.use("*", (req, res, next) => {
-  next(new NotFoundError("Маршрут не найден"));
+app.use('*', (req, res, next) => {
+  next(new NotFoundError('Маршрут не найден'));
 });
 app.use(errors());
 app.use((err, req, res, next) => {
@@ -35,15 +33,15 @@ app.use((err, req, res, next) => {
     return;
   }
   if (err instanceof mongoose.Error.ValidationError) {
-    res.status(BAD_REQUEST).send({ message: "Переданы некорректные данные" });
+    res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные' });
     return;
   }
   if (err.code === 11000) {
-    res.status(CONFLICT).send({ message: "Такой email уже зарегистрирован" });
+    res.status(CONFLICT).send({ message: 'Такой email уже зарегистрирован' });
     return;
   }
 
-  res.status(SERVER_ERROR).send({ message: "На сервере произошла ошибка" });
+  res.status(SERVER_ERROR).send({ message: 'На сервере произошла ошибка' });
 });
 
 app.listen(PORT);
