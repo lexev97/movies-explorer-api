@@ -1,9 +1,14 @@
+const mongoose = require('mongoose');
 const bycript = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const { JWT_SECRET = 'some-secret-key' } = process.env;
-const { CREATED } = require('../errors/statusCodes');
+const {
+  CREATED, authSuccessMsg, logoutMsg, emailExistMsg, incorrectDataMsg,
+} = require('../constants/constants');
+const ConflictError = require('../errors/ConflictError');
+const BadRequestError = require('../errors/BadRequestError');
 
 // Returns user's info (email and name)
 module.exports.getUserInfo = (req, res, next) => {
@@ -24,7 +29,15 @@ module.exports.updateUserInfo = (req, res, next) => {
     { new: true, runValidators: true },
   )
     .then((user) => res.send({ data: user }))
-    .catch(next);
+    .catch((err) => {
+      if (err.code === 11000) {
+        next(new ConflictError(emailExistMsg));
+      }
+      if (err instanceof mongoose.Error.ValidationError) {
+        next(new BadRequestError(incorrectDataMsg));
+      }
+      next(err);
+    });
 };
 
 // Creates new user
@@ -46,7 +59,15 @@ module.exports.createUser = (req, res, next) => {
         },
       });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.code === 11000) {
+        next(new ConflictError(emailExistMsg));
+      }
+      if (err instanceof mongoose.Error.ValidationError) {
+        next(new BadRequestError(incorrectDataMsg));
+      }
+      next(err);
+    });
 };
 
 // Returns JWT once email and password verified
@@ -65,12 +86,17 @@ module.exports.loginUser = (req, res, next) => {
           httpOnly: true,
           samesite: 'strict',
         })
-        .send({ message: 'Авторизация прошла успешно!' });
+        .send({ message: authSuccessMsg });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err instanceof mongoose.Error.ValidationError) {
+        next(new BadRequestError(incorrectDataMsg));
+      }
+      next(err);
+    });
 };
 
 // Removes JWT from cookies once user signout
 module.exports.logoutUser = (req, res) => {
-  res.clearCookie('jwt').send({ message: 'Сеанс завершен' });
+  res.clearCookie('jwt').send({ message: logoutMsg });
 };

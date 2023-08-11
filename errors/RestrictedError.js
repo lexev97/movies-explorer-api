@@ -1,4 +1,4 @@
-const { FORBIDDEN } = require('./statusCodes');
+const { FORBIDDEN } = require('../constants/constants');
 
 module.exports = class RestrictedError extends Error {
   constructor(message) {

@@ -1,6 +1,6 @@
 const allowedCors = [
-  // 'https://...',
-  // 'http://...',
+  'https://ypdiploma.nomoreparties.co',
+  'https://ypdiploma.nomoreparties.co',
   'http://localhost:3000',
 ];
 

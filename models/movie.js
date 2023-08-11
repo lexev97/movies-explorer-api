@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { linkRegex } = require('../constants/constants');
+const { linkRegex, wrongLinkMsg } = require('../constants/constants');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -29,7 +29,7 @@ const movieSchema = new mongoose.Schema({
       validator(v) {
         return linkRegex.test(v);
       },
-      message: 'Неправильная ссылка',
+      message: wrongLinkMsg,
     },
   },
   trailerLink: {
@@ -39,7 +39,7 @@ const movieSchema = new mongoose.Schema({
       validator(v) {
         return linkRegex.test(v);
       },
-      message: 'Неправильная ссылка',
+      message: wrongLinkMsg,
     },
   },
   thumbnail: {
@@ -49,7 +49,7 @@ const movieSchema = new mongoose.Schema({
       validator(v) {
         return linkRegex.test(v);
       },
-      message: 'Неправильная ссылка',
+      message: wrongLinkMsg,
     },
   },
   owner: {

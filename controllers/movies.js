@@ -1,7 +1,11 @@
+const mongoose = require('mongoose');
 const Movie = require('../models/movie');
-const { CREATED } = require('../errors/statusCodes');
+const {
+  CREATED, deletingRestrictedMsg, noSuchMovieIdMsg, incorrectDataMsg,
+} = require('../constants/constants');
 const NotFoundError = require('../errors/NotFoundError');
 const RestrictedError = require('../errors/RestrictedError');
+const BadRequestError = require('../errors/BadRequestError');
 
 // Returns all movies saved by current user
 module.exports.getSavedMovies = (req, res, next) => {
@@ -46,7 +50,12 @@ module.exports.addMovie = (req, res, next) => {
     owner,
   })
     .then((movie) => res.status(CREATED).send({ data: movie }))
-    .catch(next);
+    .catch((err) => {
+      if (err instanceof mongoose.Error.ValidationError) {
+        next(new BadRequestError(incorrectDataMsg));
+      }
+      next(err);
+    });
 };
 
 // Removes saved movie by id
@@ -57,9 +66,9 @@ module.exports.removeMovie = (req, res, next) => {
         return Movie.findByIdAndRemove(movie._id);
       }
       if (movie && (movie.owner.toString() !== req.user._id)) {
-        throw new RestrictedError('Пользователь может удалять только свои фильмы');
+        throw new RestrictedError(deletingRestrictedMsg);
       }
-      throw new NotFoundError('Передан несуществующий _id фильма');
+      throw new NotFoundError(noSuchMovieIdMsg);
     })
     .then((mov) => res.send({ data: mov }))
     .catch(next);
