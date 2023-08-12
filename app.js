@@ -9,8 +9,9 @@ const { corsHandler } = require('./middlewares/cors');
 const { limiter } = require('./middlewares/limiter');
 
 const errorHandler = require('./middlewares/errorHandler');
+const { MONGOOSE_DB } = require('./constants/constants');
 
-const { PORT = 5000, MONGOOSE_DB = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
+const { PORT = 5000 } = process.env;
 
 const app = express();
 mongoose.connect(MONGOOSE_DB);

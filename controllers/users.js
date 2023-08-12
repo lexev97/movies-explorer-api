@@ -3,9 +3,8 @@ const bycript = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-const { JWT_SECRET = 'some-secret-key' } = process.env;
 const {
-  CREATED, authSuccessMsg, logoutMsg, emailExistMsg, incorrectDataMsg,
+  CREATED, authSuccessMsg, logoutMsg, emailExistMsg, incorrectDataMsg, JWT_SECRET,
 } = require('../constants/constants');
 const ConflictError = require('../errors/ConflictError');
 const BadRequestError = require('../errors/BadRequestError');

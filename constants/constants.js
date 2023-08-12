@@ -1,3 +1,6 @@
+const { MONGOOSE_DB = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
+const { JWT_SECRET = 'some-secret-key' } = process.env;
+
 const linkRegex = /^https?:\/\/(www\.)?[\w\-._~:/?#[\]@!$&'()*+,;=]+\.[\w\-._~:/?#[\]@!$%&'()*+,;=]+#?$/;
 
 // Status codes
@@ -46,4 +49,6 @@ module.exports = {
   noSuchRouteMsg,
   emailExistMsg,
   incorrectDataMsg,
+  MONGOOSE_DB,
+  JWT_SECRET,
 };
