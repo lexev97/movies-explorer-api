@@ -83,7 +83,7 @@ module.exports.loginUser = (req, res, next) => {
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
-          samesite: 'strict',
+          sameSite: 'strict',
         })
         .send({ message: authSuccessMsg });
     })
