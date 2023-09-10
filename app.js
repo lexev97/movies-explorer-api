@@ -6,7 +6,7 @@ const { errors } = require('celebrate');
 // const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { corsHandler } = require('./middlewares/cors');
-const { limiter } = require('./middlewares/limiter');
+// const { limiter } = require('./middlewares/limiter');
 
 const errorHandler = require('./middlewares/errorHandler');
 const { MONGOOSE_DB } = require('./constants/constants');
@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(requestLogger);
 app.use(corsHandler);
 
-app.use('/', limiter, require('./routes/index'));
+app.use('/', require('./routes/index'));
 
 app.use(errorLogger);
 
