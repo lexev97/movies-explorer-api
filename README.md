@@ -25,6 +25,10 @@ Backend для SPA [Movies Explorer](https://github.com/lexev97/movies-explorer-
 ### Удаляет сохранённый фильм по id
 - DELETE /movies/_id 
 
+## Стек
+
+Node.js, Express, MongoDB, helmet, celebrate, winston, express-rate-limit
+
 ## Развертывание
 
 Для копирования и запуска приложения Вам потребуются [Git](https://git-scm.com/) и [Node.js](https://nodejs.org/en/download/) (вместе с которым автоматически устанавливается менеджер пакетов [npm](http://npmjs.com/)) предварительно установленные на компьютер.
