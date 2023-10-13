@@ -14,9 +14,9 @@ const { MONGOOSE_DB } = require('./constants/constants');
 const { PORT = 5000 } = process.env;
 
 const app = express();
+app.use(corsHandler);
 mongoose.connect(MONGOOSE_DB);
 
-app.use(corsHandler);
 app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
