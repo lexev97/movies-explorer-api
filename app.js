@@ -5,7 +5,8 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { corsHandler } = require('./middlewares/cors');
+// const { corsHandler } = require('./middlewares/cors');
+const cors = require('cors')
 const { limiter } = require('./middlewares/limiter');
 
 const errorHandler = require('./middlewares/errorHandler');
@@ -20,7 +21,8 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(corsHandler());
+// app.use(corsHandler);
+app.use(cors());
 
 app.use('/', limiter, require('./routes/index'));
 
