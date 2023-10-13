@@ -1,11 +1,16 @@
 const allowedCors = [
   'https://ypdiploma.nomoreparties.co',
   'http://ypdiploma.nomoreparties.co',
+  'https://ypdiploma.nomoreparties.co/',
+  'http://ypdiploma.nomoreparties.co/',
   'http://localhost:3000',
 ];
 
 const corsHandler = (req, res, next) => {
-  const { origin } = req.headers;
+  let { origin } = req.headers;
+  if (origin === undefined) {
+    origin = req.referer;
+  }
   const { method } = req;
 
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
