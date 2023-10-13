@@ -1,6 +1,16 @@
-# Movies-Explorer. Backend
+# **Movies Explorer. Backend**
 
-Backend для дипломной работы Яндекс Практикума. Сервис, в котором можно найти фильмы по запросу и сохранить в личном кабинете.
+### Обзор
+* [Описание](#описание)
+* [Роуты](#роуты)
+* [Стек](#стек)
+* [Развертывание](#развертывание)
+* [Домен](#домен)
+<br>
+
+## Описание
+
+Backend для SPA [Movies Explorer](https://github.com/lexev97/movies-explorer-frontend). Сервис в котором можно найти фильмы по запросу и сохранить в личном кабинете.
 
 ## Роуты
 
@@ -15,18 +25,28 @@ Backend для дипломной работы Яндекс Практикума
 ### Удаляет сохранённый фильм по id
 - DELETE /movies/_id 
 
-## Запуск проекта
+## Развертывание
 
-`git clone https://github.com/lexev97/movies-explorer-api` — копирование репозитория   
-`npm install` — установка зависимостей.   
-`npm run start` — запускает сервер   
-`npm run dev` — запускает сервер с hot-reload
+Для копирования и запуска приложения Вам потребуются [Git](https://git-scm.com/) и [Node.js](https://nodejs.org/en/download/) (вместе с которым автоматически устанавливается менеджер пакетов [npm](http://npmjs.com/)) предварительно установленные на компьютер.
 
-## Ссылка на репозиторий
-https://github.com/lexev97/movies-explorer-api
+Далее пишем в командной строке следующие команды:
 
-## Публичный IP
-130.193.49.54
+```
+// Клонирование репозитория
+$ git clone https://github.com/lexev97/movies-explorer-api
+
+// Установка зависимостей
+$ npm install
+
+// Запуск сервера
+$ npm run start    
+
+// Запуск сервера с hot-reload
+$ npm run dev
+```
 
 ## Домен
 https://api.ypdiploma.nomoreparties.co
+
+## Публичный IP
+84.201.143.32
