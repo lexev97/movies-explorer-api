@@ -11,7 +11,7 @@ const { limiter } = require('./middlewares/limiter');
 const errorHandler = require('./middlewares/errorHandler');
 const { MONGOOSE_DB } = require('./constants/constants');
 
-const { PORT = 5000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 mongoose.connect(MONGOOSE_DB);
