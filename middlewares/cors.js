@@ -1,6 +1,6 @@
 const allowedCors = [
-  'https://ypdiploma.nomoreparties.co/',
-  'http://ypdiploma.nomoreparties.co/',
+  'https://ypdiploma.nomoreparties.co',
+  'http://ypdiploma.nomoreparties.co',
   'http://localhost:3000',
 ];
 
@@ -10,8 +10,8 @@ const corsHandler = (req, res, next) => {
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
   const requestHeaders = req.headers['access-control-request-headers'];
 
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', '*');
+  if (allowedCors.includes(origin)) {ы
+    res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', true);
   }
 
