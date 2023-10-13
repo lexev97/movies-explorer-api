@@ -20,7 +20,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(corsHandler);
+app.use(corsHandler());
 
 app.use('/', limiter, require('./routes/index'));
 
