@@ -7,17 +7,17 @@ const allowedCors = [
 ];
 
 const corsHandler = (req, res, next) => {
-  let { origin } = req.headers;
-  if (origin === undefined) {
-    origin = req.headers.referer;
+  let requestSentFrom = req.headers.origin;
+  if (requestSentFrom === undefined) {
+    requestSentFrom = req.headers.referer;
   }
   const { method } = req;
 
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
   const requestHeaders = req.headers['access-control-request-headers'];
 
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
+  if (allowedCors.includes(requestSentFrom)) {
+    res.header('Access-Control-Allow-Origin', requestSentFrom);
     res.header('Access-Control-Allow-Credentials', true);
   }
 
