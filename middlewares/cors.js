@@ -9,7 +9,7 @@ const allowedCors = [
 const corsHandler = (req, res, next) => {
   let { origin } = req.headers;
   if (origin === undefined) {
-    origin = req.referer;
+    origin = req.headers.referer;
   }
   const { method } = req;
 
