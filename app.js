@@ -4,7 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { limiter } = require('./middlewares/limiter');
 
@@ -16,7 +16,7 @@ const { PORT = 3001 } = process.env;
 const app = express();
 mongoose.connect(MONGOOSE_DB);
 
-// app.use(helmet());
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
