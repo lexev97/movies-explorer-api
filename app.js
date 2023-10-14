@@ -19,6 +19,7 @@ mongoose.connect(MONGOOSE_DB);
 const corsOptions = {
   origin: 'https://ypdiploma.nomoreparties.co',
   optionsSuccessStatus: 200,
+  accessControlAllowCredentials: true,
 };
 
 app.use(cors(corsOptions));
