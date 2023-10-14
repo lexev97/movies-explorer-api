@@ -1,6 +1,6 @@
 const cors = require('cors');
 
-const corsOptions = {
+const corsHandler = cors({
   origin: [
     'https://ypdiploma.nomoreparties.co',
     'http://ypdiploma.nomoreparties.co',
@@ -8,8 +8,6 @@ const corsOptions = {
   ],
   optionsSuccessStatus: 200,
   credentials: true,
-};
-
-const corsHandler = cors(corsOptions);
+});
 
 module.exports = { corsHandler };
