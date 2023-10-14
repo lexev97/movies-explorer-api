@@ -16,7 +16,7 @@ const { PORT = 3001 } = process.env;
 const app = express();
 mongoose.connect(MONGOOSE_DB);
 
-app.use(corsHandler());
+app.use(corsHandler);
 app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
