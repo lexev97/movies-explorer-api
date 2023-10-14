@@ -1,10 +1,10 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+const corsHandler = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { limiter } = require('./middlewares/limiter');
 
@@ -16,13 +16,7 @@ const { PORT = 3001 } = process.env;
 const app = express();
 mongoose.connect(MONGOOSE_DB);
 
-const corsOptions = {
-  origin: ['https://ypdiploma.nomoreparties.co', 'http://ypdiploma.nomoreparties.co', 'http://localhost:3000'],
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
+app.use(corsHandler());
 app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
