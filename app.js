@@ -16,8 +16,13 @@ const { PORT = 3001 } = process.env;
 const app = express();
 mongoose.connect(MONGOOSE_DB);
 
+const corsOptions = {
+  origin: 'https://ypdiploma.nomoreparties.co',
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 app.use(helmet());
-app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
